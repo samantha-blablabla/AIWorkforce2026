@@ -189,25 +189,37 @@ export const RoadmapSection: React.FC = () => {
   );
 };
 
-// SECTION 4: REGISTRATION
+// SECTION 4: REGISTRATION - Match template exactly
 export const RegistrationSectionComponent: React.FC = () => {
   return (
-    <section className="w-screen min-h-screen md:h-screen flex-shrink-0 flex flex-col md:flex-row bg-[#060606] relative overflow-hidden pt-20 md:pt-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_50%,_rgba(107,0,255,0.2),_transparent_60%)] pointer-events-none z-0"></div>
+    <section className="w-screen min-h-screen md:h-screen flex-shrink-0 flex flex-col md:flex-row relative overflow-hidden pt-20 md:pt-0">
+        {/* Background Image - Same as Loader */}
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src="/Template/BG.png"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-        <div className="w-full md:w-1/2 h-auto md:h-full relative flex flex-col justify-center px-6 md:pl-24 md:pr-10 z-10 pb-8 md:pb-0">
+        {/* Purple Glow - Bottom Left like template */}
+        <div className="absolute bottom-[-20%] left-[-10%] w-[60vw] h-[60vw] bg-[radial-gradient(circle,_rgba(107,0,255,0.4)_0%,_rgba(130,55,255,0.25)_40%,_transparent_70%)] pointer-events-none blur-[120px]"></div>
+
+        {/* Left Side - Slogan */}
+        <div className="w-full md:w-1/2 h-auto md:h-full relative flex flex-col justify-center px-6 md:pl-20 md:pr-10 z-10 pb-8 md:pb-0">
              <div className="relative">
-                 <h3 className="text-xl md:text-2xl font-normal text-white mb-2 tracking-wide font-sans">
+                 <h3 className="text-lg md:text-xl font-light text-gray-300 mb-3 tracking-wide font-sans">
                     {siteData.registration.sloganSmall}
                  </h3>
-                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-white font-sans">
+                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal leading-tight tracking-tight text-white font-sans">
                     <span className="block">{siteData.registration.sloganLine1}</span>
                     <span className="block">{siteData.registration.sloganLine2}</span>
                  </h2>
              </div>
         </div>
 
-        <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-6 md:px-24 relative z-10 pb-20 md:pb-0">
+        {/* Right Side - Form */}
+        <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-6 md:px-16 lg:px-20 relative z-10 pb-20 md:pb-0">
              <RegisterForm />
         </div>
     </section>

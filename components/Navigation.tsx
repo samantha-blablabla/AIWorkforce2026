@@ -113,18 +113,18 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
       )}
 
       {/* Bottom Bar with Logo & Progress (Desktop & Mobile) */}
-      <div className="fixed bottom-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-t border-white/5 pb-10 md:pb-12">
-        {/* Logo Container */}
-        <div className="absolute left-6 md:left-10 bottom-3 md:bottom-4 z-10">
+      <div className="fixed bottom-0 left-0 w-full z-40">
+        {/* Logo - Positioned above progress bar */}
+        <div className="absolute left-6 md:left-10 bottom-4 md:bottom-6 z-10">
           <img
             src="/Template/LOGO-WHITE.png"
             alt="GEARVN"
-            className="h-6 md:h-8 w-auto opacity-90 hover:opacity-100 transition-opacity"
+            className="h-8 md:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity"
           />
         </div>
 
         {/* Progress Bar */}
-        <div className="h-1 bg-white/5 w-full">
+        <div className="h-1 bg-white/10 w-full">
           <div
             className="h-full bg-gradient-to-r from-dark-blue-600 via-dark-blue-500 to-dark-blue-600 transition-all duration-300 ease-out"
             style={{ width: `${((currentSection + 1) / totalSections) * 100}%` }}
