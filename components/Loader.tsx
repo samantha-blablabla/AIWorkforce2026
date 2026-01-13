@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { siteData } from '../siteContent';
 import gsap from 'gsap';
 
 interface LoaderProps {
@@ -9,38 +8,46 @@ interface LoaderProps {
 const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Rhythmic loading simulation
     const tl = gsap.timeline({
       onComplete: () => {
-        // Exit Animation: Slide up like a curtain
+        // Exit Animation: Slide up
         gsap.to(containerRef.current, {
           yPercent: -100,
-          duration: 1.2,
+          duration: 1.0,
           ease: "power4.inOut",
           onComplete: onComplete
         });
       }
     });
 
-    // Animate progress 0 -> 100 with "rhythm" (slow start, fast middle, slow end)
-    const progressObj = { value: 0 };
+    // 1. Animate Line Expansion
+    // Thicker line as requested
+    tl.fromTo(".loader-line", 
+      { width: 0 },
+      { width: "100%", duration: 1.5, ease: "power3.inOut" }
+    );
+
+    // 2. Parallel: Count up & Text Reveal
+    tl.addLabel("content");
     
+    // Animate progress 0 -> 100 with "latency" (slow end)
+    const progressObj = { value: 0 };
     tl.to(progressObj, {
       value: 100,
-      duration: 3.5,
-      ease: "expo.inOut", // The "rhythmic" ease
+      duration: 3.5, // Slower duration
+      ease: "expo.out", // Fast start, very slow ("laggy") end
       onUpdate: () => {
         setProgress(Math.round(progressObj.value));
       }
-    });
+    }, "content-=1"); 
 
-    // Text reveal animation
-    gsap.fromTo(textRef.current, 
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, delay: 0.5, ease: "power3.out" }
+    // Text Stagger Reveal
+    tl.fromTo(".loader-text", 
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" },
+      "content-=0.5"
     );
 
     return () => {
@@ -48,53 +55,40 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     };
   }, [onComplete]);
 
-  // Format number to always be at least 2 digits (e.g., 01, 05, 99)
-  const formattedProgress = progress < 10 ? `0${progress}` : progress;
-
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 z-50 bg-[#050505] flex flex-col justify-between p-6 md:p-12 overflow-hidden"
+      className="fixed inset-0 z-[100] bg-[#050505] flex flex-col justify-center px-6 md:px-24 font-sans overflow-hidden"
     >
-      {/* Background Glow */}
-      <div className="absolute top-[-20%] right-[-20%] w-[60vw] h-[60vw] bg-dark-blue-900/20 rounded-full blur-[150px] pointer-events-none"></div>
+      {/* Purple Glow Background - Top Right Swoosh */}
+      <div className="absolute top-[-20%] right-[-10%] w-[70vw] h-[70vw] bg-[radial-gradient(circle,_rgba(107,0,255,0.4)_0%,_transparent_70%)] pointer-events-none blur-[60px]"></div>
 
-      {/* Top Header during loading */}
-      <div className="flex justify-between items-start opacity-50 relative z-10">
-        <span className="text-sm tracking-widest uppercase">AI Workforce</span>
-        <span className="text-sm tracking-widest uppercase">2026</span>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex flex-col md:flex-row items-end md:items-end justify-between w-full mb-10 md:mb-0 relative z-10">
+      {/* Content Wrapper */}
+      <div className="relative z-10 w-full max-w-5xl">
         
-        {/* Text Info */}
-        <div ref={textRef} className="mb-10 md:mb-4 relative z-10">
-           <h2 className="text-3xl md:text-5xl font-medium leading-tight text-white">
-            {siteData.intro.titleLine1}
-          </h2>
-          <p className="text-dark-blue-400 mt-2 text-lg md:text-xl">
-             Loading Experience...
-          </p>
-        </div>
-
-        {/* Big Counter */}
-        <div className="relative z-10 flex items-baseline leading-none">
-          <h1 className="text-[25vw] md:text-[20vw] font-bold text-white tracking-tighter leading-none -mb-4 md:-mb-10">
-            {formattedProgress}
+        {/* Percentage Display */}
+        <div className="flex items-start leading-none mb-4 md:mb-6">
+          {/* Font weight 400 (font-normal) as requested */}
+          <h1 className="text-[25vw] md:text-[14rem] font-normal text-[#E0E0E0] tracking-tighter tabular-nums leading-none font-sans">
+            {progress}
           </h1>
-          <span className="text-2xl md:text-5xl font-light text-dark-blue-500 ml-2 md:ml-4 -translate-y-4 md:-translate-y-8">
-            %
-          </span>
+          <span className="text-4xl md:text-6xl text-[#E0E0E0] font-normal mt-4 md:mt-8 ml-1">%</span>
         </div>
-      </div>
 
-      {/* Progress Bar Line at the bottom */}
-      <div className="absolute bottom-0 left-0 w-full h-[4px] bg-white/10">
-        <div 
-          className="h-full bg-dark-blue-600 transition-all duration-75 ease-out"
-          style={{ width: `${progress}%` }}
-        />
+        {/* Separator Line - Thicker (h-[2px]) */}
+        <div className="loader-line w-full h-[2px] bg-gray-500 mb-8 md:mb-12"></div>
+
+        {/* Text Block */}
+        <div className="space-y-2 md:space-y-4">
+          <p className="loader-text text-xl md:text-3xl text-gray-400 font-normal tracking-wide">
+            AI Workforce 2026
+          </p>
+          <h2 className="loader-text text-4xl md:text-7xl font-medium text-white leading-[1.1] tracking-tight">
+            <span className="block">Rước Bot Về Nhà</span>
+            <span className="block">Chăm Lo Việc Nhà</span>
+          </h2>
+        </div>
+
       </div>
     </div>
   );

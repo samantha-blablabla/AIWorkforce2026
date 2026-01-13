@@ -17,7 +17,7 @@ export const IntroSection: React.FC = () => {
     // Only apply parallax on mobile vertical scroll
     if (window.innerWidth < 768) {
       const ctx = gsap.context(() => {
-        // Parallax Background: Moves slower than scroll
+        // Parallax Background
         gsap.to(bgRef.current, {
           yPercent: 30, 
           ease: "none",
@@ -29,7 +29,7 @@ export const IntroSection: React.FC = () => {
           }
         });
         
-        // Parallax Text: Moves slightly faster for depth
+        // Parallax Text
         gsap.to(textRef.current, {
            yPercent: -10,
            ease: "none",
@@ -45,20 +45,21 @@ export const IntroSection: React.FC = () => {
     }
   }, []);
 
-  // Changed w-screen to w-full to fix scrollbar overflow issue
   return (
-    <section ref={sectionRef} className="w-full min-h-screen md:h-screen flex-shrink-0 relative flex items-center px-6 md:px-20 bg-grid pt-20 md:pt-0 overflow-hidden">
+    // Use w-screen to ensure exactly 100vw width in horizontal flex container
+    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 relative flex items-center px-6 md:px-20 bg-grid pt-20 md:pt-0 overflow-hidden">
       <div ref={textRef} className="relative z-10 max-w-6xl mt-10 md:mt-20">
         <h2 className="text-xl md:text-4xl text-gray-200 mb-4 font-light tracking-wide font-sans">
           {siteData.intro.titleLine1}
         </h2>
-        <h1 className="text-5xl md:text-[8rem] font-bold leading-[1.0] md:leading-[0.9] tracking-tighter font-sans">
+        {/* RELAXED TYPOGRAPHY: leading-[1.1] and tracking-tight (instead of tighter) to prevent overlapping */}
+        <h1 className="text-5xl md:text-[8rem] font-bold leading-[1.1] tracking-tight font-sans">
           <span className="block text-white">{siteData.intro.titleLine2}</span>
           <span className="block text-white">{siteData.intro.titleLine3}</span>
         </h1>
       </div>
       
-      {/* Background Visual Element with Parallax Ref */}
+      {/* Background Visual Element */}
       <div ref={bgRef} className="absolute top-0 right-0 w-full h-[120%] md:h-full md:w-3/5 opacity-30 md:opacity-40 mix-blend-overlay pointer-events-none translate-y-[-10%] md:translate-y-0">
          <img 
             src={siteData.intro.bgImage} 
@@ -78,13 +79,12 @@ export const OverviewSection: React.FC = () => {
   useLayoutEffect(() => {
     if (window.innerWidth < 768) {
       const ctx = gsap.context(() => {
-        // Staggered Parallax for items
         const items = gsap.utils.toArray('.overview-item-number');
         items.forEach((item: any, i) => {
            gsap.fromTo(item, 
              { y: 0 },
              { 
-               y: -30, // Numbers float upward relative to container
+               y: -30, 
                ease: "none",
                scrollTrigger: {
                  trigger: item.parentNode,
@@ -100,11 +100,9 @@ export const OverviewSection: React.FC = () => {
     }
   }, []);
 
-  // Changed w-screen to w-full
   return (
-    <section ref={sectionRef} className="w-full min-h-screen md:h-screen flex-shrink-0 flex items-center justify-center bg-[#050505] md:border-r border-white/5 relative pt-24 md:pt-0">
+    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 flex items-center justify-center bg-[#050505] md:border-r border-white/5 relative pt-24 md:pt-0">
         <div className="w-full px-6 md:px-20 flex flex-col justify-center">
-            
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-0 border-t-0 border-b-0 md:border-t md:border-b border-white/10 md:border-none py-8 md:py-0">
                 {siteData.overview.map((item, index) => (
                     <div 
@@ -116,17 +114,12 @@ export const OverviewSection: React.FC = () => {
                             border-none
                         `}
                     >
-                        {/* Number with Parallax Class */}
                         <span className="overview-item-number text-5xl md:text-8xl font-bold text-dark-blue-600 mb-2 md:mb-8 font-sans tracking-tight block transform will-change-transform">
                             {item.id}.
                         </span>
-                        
-                        {/* Title */}
                         <h3 className="text-3xl md:text-4xl font-bold mb-3 md:mb-6 text-white leading-tight font-sans tracking-tight">
                             {item.title}
                         </h3>
-                        
-                        {/* Description */}
                         <p className="text-gray-400 text-lg leading-relaxed font-sans font-light">
                             {item.desc}
                         </p>
@@ -146,7 +139,6 @@ export const RoadmapSection: React.FC = () => {
   useLayoutEffect(() => {
     if (window.innerWidth < 768) {
       const ctx = gsap.context(() => {
-        // Glow moves significantly to create atmosphere
         gsap.to(glowRef.current, {
            y: 100,
            opacity: 0.5,
@@ -163,10 +155,8 @@ export const RoadmapSection: React.FC = () => {
     }
   }, []);
 
-  // Changed w-screen to w-full
   return (
-    <section ref={sectionRef} className="w-full min-h-screen md:h-screen flex-shrink-0 flex items-center px-6 md:px-20 md:border-r border-white/5 bg-[#050505] relative overflow-hidden pt-24 md:pt-0 pb-20 md:pb-0">
-        {/* Glow with Ref */}
+    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 flex items-center px-6 md:px-20 md:border-r border-white/5 bg-[#050505] relative overflow-hidden pt-24 md:pt-0 pb-20 md:pb-0">
         <div ref={glowRef} className="absolute bottom-0 left-1/4 w-[800px] h-[600px] bg-dark-blue-900/20 rounded-full blur-[120px] will-change-transform"></div>
 
         <div className="w-full relative z-10">
@@ -175,27 +165,20 @@ export const RoadmapSection: React.FC = () => {
             </h2>
             
             <div className="relative mt-10 md:mt-20">
-                {/* Horizontal Line (Desktop) */}
                 <div className="hidden md:block absolute top-10 left-0 w-full h-[2px] bg-gradient-to-r from-dark-blue-900/30 via-dark-blue-600 to-dark-blue-900/30"></div>
-                
-                {/* Vertical Line (Mobile) */}
                 <div className="md:hidden absolute top-0 left-[5px] w-[2px] h-full bg-gradient-to-b from-dark-blue-600 via-dark-blue-900 to-transparent"></div>
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {siteData.roadmap.map((item, idx) => (
                         <div key={idx} className="relative group cursor-pointer perspective-1000 pl-8 md:pl-0 pt-0 md:pt-24">
-                            {/* Dot */}
                             <div className="absolute top-2 left-0 md:top-[34px] md:left-0 w-3 h-3 rounded-full bg-dark-blue-600 ring-4 md:ring-8 ring-[#050505] group-hover:scale-150 transition-transform duration-300 shadow-[0_0_20px_rgba(107,0,255,0.5)] z-20"></div>
                             
                             <span className="text-dark-blue-400 font-sans text-lg md:text-xl mb-1 md:mb-3 block tracking-wider group-hover:text-white transition-colors duration-300">{item.quarter}</span>
                             <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3 leading-none group-hover:text-dark-blue-300 transition-colors duration-300 font-sans">{item.title}</h3>
                             <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-xs md:group-hover:opacity-0 transition-opacity duration-300 font-sans">{item.details}</p>
 
-                            {/* HOVER TOOLTIP / MODAL (Desktop Only) */}
                             <div className="hidden md:block absolute bottom-full left-0 mb-8 w-72 p-6 bg-[#111]/90 backdrop-blur-xl border border-white/10 rounded-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-30 shadow-2xl shadow-dark-blue-900/30 pointer-events-none group-hover:pointer-events-auto">
-                                {/* Arrow pointing DOWN */}
                                 <div className="absolute -bottom-2 left-6 w-4 h-4 bg-[#111] border-b border-r border-white/10 transform rotate-45"></div>
-                                
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-full bg-dark-blue-900/50 flex items-center justify-center text-dark-blue-400 border border-dark-blue-500/30">
                                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
@@ -218,13 +201,10 @@ export const RoadmapSection: React.FC = () => {
 
 // SECTION 4: REGISTRATION
 export const RegistrationSectionComponent: React.FC = () => {
-  // Changed w-screen to w-full
   return (
-    <section className="w-full min-h-screen md:h-screen flex-shrink-0 flex flex-col md:flex-row bg-[#050505] relative overflow-hidden pt-20 md:pt-0">
-        {/* Background Visual: Radial Purple Glow */}
+    <section className="w-screen min-h-screen md:h-screen flex-shrink-0 flex flex-col md:flex-row bg-[#050505] relative overflow-hidden pt-20 md:pt-0">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_50%,_rgba(107,0,255,0.2),_transparent_60%)] pointer-events-none z-0"></div>
 
-        {/* Left Side: Text Content */}
         <div className="w-full md:w-1/2 h-auto md:h-full relative flex flex-col justify-center px-6 md:pl-24 md:pr-10 z-10 pb-8 md:pb-0">
              <div className="relative">
                  <h3 className="text-xl md:text-2xl font-normal text-white mb-2 tracking-wide font-sans">
@@ -237,7 +217,6 @@ export const RegistrationSectionComponent: React.FC = () => {
              </div>
         </div>
 
-        {/* Right Side: Form */}
         <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-6 md:px-24 relative z-10 pb-20 md:pb-0">
              <RegisterForm />
         </div>

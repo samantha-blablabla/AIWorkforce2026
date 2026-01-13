@@ -39,16 +39,15 @@
         font-family: 'Space Grotesk', sans-serif;
         background-color: #050505;
         color: white;
-        overflow-x: hidden; /* Prevent horizontal scrollbar */
-        overflow-y: auto;   /* Allow vertical scroll for GSAP trigger */
+        overflow-x: hidden;
       }
       
-      /* Subtle Grid Background Pattern */
+      /* Subtle Grid Background Pattern - Reduced Opacity */
       .bg-grid {
         background-size: 60px 60px;
         background-image:
-          linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+          linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
       }
 
       /* Scrollbar hiding utility */
@@ -60,27 +59,26 @@
         scrollbar-width: none;
       }
 
-      /* CUSTOM SCROLLBAR STYLING - PREMIUM DARK THEME */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #050505; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #333; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #555; 
+      /* Desktop: Hide Scrollbar for App-like feel, GSAP controls virtual scroll */
+      @media (min-width: 768px) {
+        ::-webkit-scrollbar {
+          width: 0px;
+          background: transparent;
+        }
       }
 
-      /* Mobile vertical scroll enable */
+      /* Mobile: Standard Scrollbar */
       @media (max-width: 768px) {
         body {
           overflow-y: auto;
           overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 2px;
         }
       }
     </style>

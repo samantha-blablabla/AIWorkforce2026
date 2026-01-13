@@ -39,7 +39,6 @@ const App: React.FC = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
-          // Scrub: 2 makes it very smooth and "heavy" (premium feel)
           scrub: 2, 
           snap: {
             snapTo: 1 / (sections.length - 1),
@@ -47,8 +46,6 @@ const App: React.FC = () => {
             duration: { min: 0.1, max: 0.2 },
             delay: 0.1
           },
-          // Increase end value significantly (6000) to make the scroll duration longer
-          // This creates the "delay" effect requested, allowing users to dwell on content.
           end: "+=6000", 
           onUpdate: (self) => {
             const progress = self.progress;
@@ -57,7 +54,6 @@ const App: React.FC = () => {
           }
         }
       });
-      // Store reference to scrollTrigger for navigation clicks
       triggerRef.current = (scrollTween as any).scrollTrigger;
     }, containerRef);
 
@@ -85,19 +81,14 @@ const App: React.FC = () => {
 
   const handleNavigate = (index: number) => {
     if (isMobile) {
-       // Mobile navigation logic: scroll to offsetTop
        const sections = document.querySelectorAll('.panel');
        if (sections[index]) {
          sections[index].scrollIntoView({ behavior: 'smooth' });
        }
     } else {
-       // Desktop Horizontal Logic using GSAP ScrollTrigger
        if (triggerRef.current) {
          const st = triggerRef.current;
-         // Total scroll distance available
          const totalDistance = st.end - st.start;
-         // Calculate target scroll position based on index (0 to 3)
-         // There are 3 intervals for 4 sections
          const progress = index / 3; 
          const targetScroll = st.start + (totalDistance * progress);
          
@@ -121,11 +112,6 @@ const App: React.FC = () => {
         onNavigate={handleNavigate}
       />
       
-      {/* 
-        Structure: 
-        Desktop: Horizontal overflow hidden wrapper (GSAP pinned)
-        Mobile: Vertical normal block 
-      */}
       <div 
         ref={containerRef} 
         className={`w-full h-full ${!isMobile ? 'overflow-hidden' : ''}`}
@@ -135,11 +121,14 @@ const App: React.FC = () => {
           className={`flex ${isMobile ? 'flex-col' : 'flex-row'}`}
           style={{ width: isMobile ? '100%' : '400vw' }}
         >
-          {/* Mobile: min-h-screen allows content to dictate height if needed, Desktop: fixed h-screen */}
-          <div className="panel w-full min-h-screen md:h-screen"><IntroSection /></div>
-          <div className="panel w-full min-h-screen md:h-screen"><OverviewSection /></div>
-          <div className="panel w-full min-h-screen md:h-screen"><RoadmapSection /></div>
-          <div className="panel w-full min-h-screen md:h-screen"><RegistrationSectionComponent /></div>
+          {/* 
+            Desktop: Each panel MUST be w-screen (100vw) relative to the 400vw container.
+            Using w-full would make them 400vw wide each, breaking the layout.
+          */}
+          <div className="panel w-full md:w-screen min-h-screen md:h-screen"><IntroSection /></div>
+          <div className="panel w-full md:w-screen min-h-screen md:h-screen"><OverviewSection /></div>
+          <div className="panel w-full md:w-screen min-h-screen md:h-screen"><RoadmapSection /></div>
+          <div className="panel w-full md:w-screen min-h-screen md:h-screen"><RegistrationSectionComponent /></div>
         </div>
       </div>
     </div>
