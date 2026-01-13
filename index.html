@@ -51,13 +51,29 @@
           linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
       }
 
-      /* Scrollbar hiding */
+      /* Scrollbar hiding utility */
       .no-scrollbar::-webkit-scrollbar {
         display: none;
       }
       .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
+      }
+
+      /* CUSTOM SCROLLBAR STYLING - PREMIUM DARK THEME */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050505; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333; 
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
       }
 
       /* Mobile vertical scroll enable */

@@ -135,10 +135,11 @@ const App: React.FC = () => {
           className={`flex ${isMobile ? 'flex-col' : 'flex-row'}`}
           style={{ width: isMobile ? '100%' : '400vw' }}
         >
-          <div className="panel w-full h-screen"><IntroSection /></div>
-          <div className="panel w-full h-screen"><OverviewSection /></div>
-          <div className="panel w-full h-screen"><RoadmapSection /></div>
-          <div className="panel w-full h-screen"><RegistrationSectionComponent /></div>
+          {/* Mobile: min-h-screen allows content to dictate height if needed, Desktop: fixed h-screen */}
+          <div className="panel w-full min-h-screen md:h-screen"><IntroSection /></div>
+          <div className="panel w-full min-h-screen md:h-screen"><OverviewSection /></div>
+          <div className="panel w-full min-h-screen md:h-screen"><RoadmapSection /></div>
+          <div className="panel w-full min-h-screen md:h-screen"><RegistrationSectionComponent /></div>
         </div>
       </div>
     </div>
