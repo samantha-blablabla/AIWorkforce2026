@@ -58,16 +58,6 @@ export const IntroSection: React.FC = () => {
           <span className="block text-white">{siteData.intro.titleLine3}</span>
         </h1>
       </div>
-      
-      {/* Background Visual Element */}
-      <div ref={bgRef} className="absolute top-0 right-0 w-full h-[120%] md:h-full md:w-3/5 opacity-30 md:opacity-40 mix-blend-overlay pointer-events-none translate-y-[-10%] md:translate-y-0">
-         <img
-            src={siteData.intro.bgImage}
-            alt="AI Visual"
-            className="w-full h-full object-cover grayscale"
-         />
-         <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-[#060606] via-[#060606]/50 to-transparent"></div>
-      </div>
     </section>
   );
 };

@@ -113,9 +113,9 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
       )}
 
       {/* Bottom Bar with Logo & Progress (Desktop & Mobile) */}
-      <div className="fixed bottom-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-t border-white/5">
+      <div className="fixed bottom-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-t border-white/5 pb-10 md:pb-12">
         {/* Logo Container */}
-        <div className="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 z-10">
+        <div className="absolute left-6 md:left-10 bottom-3 md:bottom-4 z-10">
           <img
             src="/Template/LOGO-WHITE.png"
             alt="GEARVN"

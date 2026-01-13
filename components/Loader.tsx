@@ -90,14 +90,13 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       ref={containerRef}
       className="fixed inset-0 z-[100] bg-[#060606] flex flex-col justify-center px-6 md:px-24 font-sans overflow-hidden"
     >
-      {/* Background Image - Same as template */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
+      {/* Background Image - Full opacity as template */}
+      <div className="absolute inset-0 pointer-events-none">
         <img
           src="/Template/BG.png"
           alt=""
-          className="w-full h-full object-cover grayscale"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#060606]/80 via-[#060606]/60 to-[#060606]/90"></div>
       </div>
 
       {/* Purple Glow Background - Animated (cargokite style) */}
