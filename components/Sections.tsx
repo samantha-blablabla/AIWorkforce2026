@@ -47,8 +47,9 @@ export const IntroSection: React.FC = () => {
 
   return (
     // Use w-screen to ensure exactly 100vw width in horizontal flex container
-    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 relative flex items-center px-6 md:px-20 bg-grid pt-20 md:pt-0 overflow-hidden">
-      <div ref={textRef} className="relative z-10 max-w-6xl mt-6 md:mt-10">
+    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 relative flex items-center bg-grid pt-20 md:pt-0 overflow-hidden">
+      {/* Text aligned with logo position: left-6 md:left-10 */}
+      <div ref={textRef} className="relative z-10 max-w-6xl mt-6 md:mt-10 ml-6 md:ml-10">
         <h2 className="text-lg md:text-2xl lg:text-4xl text-gray-200 mb-3 md:mb-4 font-light tracking-wide font-sans">
           {siteData.intro.titleLine1}
         </h2>
@@ -146,13 +147,10 @@ export const RoadmapSection: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 flex items-center px-6 md:px-20 md:border-r border-white/5 bg-[#060606] relative overflow-hidden pt-24 md:pt-0 pb-20 md:pb-0">
+    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 flex items-center px-6 md:px-20 md:border-r border-white/5 bg-[#060606] relative overflow-visible pt-24 md:pt-0 pb-20 md:pb-0">
         <div ref={glowRef} className="absolute bottom-0 left-1/4 w-[800px] h-[600px] bg-dark-blue-900/20 rounded-full blur-[120px] will-change-transform"></div>
 
         <div className="w-full relative z-10">
-            <h2 className="text-[15vw] font-bold text-white/5 absolute -top-1/4 md:-top-1/2 left-0 pointer-events-none select-none leading-none tracking-tighter font-sans">
-                ROADMAP
-            </h2>
             
             <div className="relative mt-10 md:mt-20">
                 <div className="hidden md:block absolute top-10 left-0 w-full h-[2px] bg-gradient-to-r from-dark-blue-900/30 via-dark-blue-600 to-dark-blue-900/30"></div>
