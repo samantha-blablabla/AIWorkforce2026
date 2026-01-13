@@ -101,7 +101,7 @@ export const OverviewSection: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 flex items-center justify-center bg-[#050505] md:border-r border-white/5 relative pt-24 md:pt-0">
+    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 flex items-center justify-center bg-[#060606] md:border-r border-white/5 relative pt-24 md:pt-0">
         <div className="w-full px-6 md:px-20 flex flex-col justify-center">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-0 border-t-0 border-b-0 md:border-t md:border-b border-white/10 md:border-none py-8 md:py-0">
                 {siteData.overview.map((item, index) => (
@@ -156,7 +156,7 @@ export const RoadmapSection: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 flex items-center px-6 md:px-20 md:border-r border-white/5 bg-[#050505] relative overflow-hidden pt-24 md:pt-0 pb-20 md:pb-0">
+    <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 flex items-center px-6 md:px-20 md:border-r border-white/5 bg-[#060606] relative overflow-hidden pt-24 md:pt-0 pb-20 md:pb-0">
         <div ref={glowRef} className="absolute bottom-0 left-1/4 w-[800px] h-[600px] bg-dark-blue-900/20 rounded-full blur-[120px] will-change-transform"></div>
 
         <div className="w-full relative z-10">
@@ -202,7 +202,7 @@ export const RoadmapSection: React.FC = () => {
 // SECTION 4: REGISTRATION
 export const RegistrationSectionComponent: React.FC = () => {
   return (
-    <section className="w-screen min-h-screen md:h-screen flex-shrink-0 flex flex-col md:flex-row bg-[#050505] relative overflow-hidden pt-20 md:pt-0">
+    <section className="w-screen min-h-screen md:h-screen flex-shrink-0 flex flex-col md:flex-row bg-[#060606] relative overflow-hidden pt-20 md:pt-0">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_50%,_rgba(107,0,255,0.2),_transparent_60%)] pointer-events-none z-0"></div>
 
         <div className="w-full md:w-1/2 h-auto md:h-full relative flex flex-col justify-center px-6 md:pl-24 md:pr-10 z-10 pb-8 md:pb-0">

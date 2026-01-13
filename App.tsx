@@ -105,7 +105,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="bg-[#050505] text-white min-h-screen font-sans">
+    <div className="bg-[#060606] text-white min-h-screen font-sans">
       <Navigation 
         currentSection={currentSection} 
         totalSections={4} 
