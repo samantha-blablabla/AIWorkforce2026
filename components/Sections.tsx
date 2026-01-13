@@ -48,12 +48,12 @@ export const IntroSection: React.FC = () => {
   return (
     // Use w-screen to ensure exactly 100vw width in horizontal flex container
     <section ref={sectionRef} className="w-screen min-h-screen md:h-screen flex-shrink-0 relative flex items-center px-6 md:px-20 bg-grid pt-20 md:pt-0 overflow-hidden">
-      <div ref={textRef} className="relative z-10 max-w-6xl mt-10 md:mt-20">
-        <h2 className="text-xl md:text-4xl text-gray-200 mb-4 font-light tracking-wide font-sans">
+      <div ref={textRef} className="relative z-10 max-w-6xl mt-6 md:mt-10">
+        <h2 className="text-lg md:text-2xl lg:text-4xl text-gray-200 mb-3 md:mb-4 font-light tracking-wide font-sans">
           {siteData.intro.titleLine1}
         </h2>
-        {/* RELAXED TYPOGRAPHY: leading-[1.1] and tracking-tight (instead of tighter) to prevent overlapping */}
-        <h1 className="text-5xl md:text-[8rem] font-bold leading-[1.1] tracking-tight font-sans">
+        {/* Optimized for laptop: smaller on md, larger on lg */}
+        <h1 className="text-4xl md:text-6xl lg:text-[8rem] font-bold leading-[1.1] tracking-tight font-sans">
           <span className="block text-white">{siteData.intro.titleLine2}</span>
           <span className="block text-white">{siteData.intro.titleLine3}</span>
         </h1>
@@ -61,12 +61,12 @@ export const IntroSection: React.FC = () => {
       
       {/* Background Visual Element */}
       <div ref={bgRef} className="absolute top-0 right-0 w-full h-[120%] md:h-full md:w-3/5 opacity-30 md:opacity-40 mix-blend-overlay pointer-events-none translate-y-[-10%] md:translate-y-0">
-         <img 
-            src={siteData.intro.bgImage} 
-            alt="AI Visual" 
+         <img
+            src={siteData.intro.bgImage}
+            alt="AI Visual"
             className="w-full h-full object-cover grayscale"
          />
-         <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-[#050505] via-[#050505]/50 to-transparent"></div>
+         <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-[#060606] via-[#060606]/50 to-transparent"></div>
       </div>
     </section>
   );

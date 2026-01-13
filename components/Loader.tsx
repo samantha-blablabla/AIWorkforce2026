@@ -90,6 +90,16 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       ref={containerRef}
       className="fixed inset-0 z-[100] bg-[#060606] flex flex-col justify-center px-6 md:px-24 font-sans overflow-hidden"
     >
+      {/* Background Image - Same as template */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <img
+          src="/Template/BG.png"
+          alt=""
+          className="w-full h-full object-cover grayscale"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#060606]/80 via-[#060606]/60 to-[#060606]/90"></div>
+      </div>
+
       {/* Purple Glow Background - Animated (cargokite style) */}
       <div
         ref={glowRef}
@@ -97,37 +107,37 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       ></div>
 
       {/* Subtle grid overlay */}
-      <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div>
 
       {/* Content Wrapper */}
       <div className="relative z-10 w-full max-w-6xl mx-auto">
 
-        {/* Percentage Display - CargoKite style large numbers */}
-        <div className="flex items-start leading-none mb-6 md:mb-8">
-          <h1 className="text-[22vw] md:text-[16rem] font-light text-white tracking-tighter tabular-nums leading-none font-sans">
+        {/* Percentage Display - Optimized for laptop screens */}
+        <div className="flex items-start leading-none mb-4 md:mb-6">
+          <h1 className="text-[20vw] md:text-[12rem] lg:text-[14rem] font-light text-white tracking-tighter tabular-nums leading-none font-sans">
             {progress}
           </h1>
-          <span className="text-5xl md:text-7xl text-white font-light mt-6 md:mt-12 ml-2 opacity-90">%</span>
+          <span className="text-4xl md:text-6xl lg:text-7xl text-white font-light mt-4 md:mt-8 lg:mt-10 ml-2 opacity-90">%</span>
         </div>
 
         {/* Separator Line - CargoKite style (thin, elegant) */}
-        <div className="w-full h-[1px] bg-white/20 mb-10 md:mb-16 overflow-hidden">
+        <div className="w-full h-[1px] bg-white/20 mb-6 md:mb-10 overflow-hidden">
           <div className="loader-line h-full bg-gradient-to-r from-dark-blue-600 via-dark-blue-500 to-dark-blue-600"></div>
         </div>
 
-        {/* Text Block - Stage reveals */}
-        <div className="space-y-3 md:space-y-5">
+        {/* Text Block - Stage reveals - Optimized sizing */}
+        <div className="space-y-2 md:space-y-4">
           {/* Stage 1: Reveals at 0-60% */}
-          <p className="loader-text-stage1 text-xl md:text-3xl text-gray-400 font-light tracking-wide opacity-0">
+          <p className="loader-text-stage1 text-lg md:text-2xl lg:text-3xl text-gray-400 font-light tracking-wide opacity-0">
             AI Workforce 2026
           </p>
 
           {/* Stage 2: Reveals at 60-100% */}
           <div className="space-y-1 md:space-y-2">
-            <h2 className="loader-text-stage2 text-4xl md:text-7xl lg:text-8xl font-normal text-white leading-[1.05] tracking-tight opacity-0">
+            <h2 className="loader-text-stage2 text-3xl md:text-5xl lg:text-7xl font-normal text-white leading-[1.05] tracking-tight opacity-0">
               Rước Bot Về Nhà
             </h2>
-            <h2 className="loader-text-stage2 text-4xl md:text-7xl lg:text-8xl font-normal text-white leading-[1.05] tracking-tight opacity-0">
+            <h2 className="loader-text-stage2 text-3xl md:text-5xl lg:text-7xl font-normal text-white leading-[1.05] tracking-tight opacity-0">
               Chăm Lo Việc Nhà
             </h2>
           </div>
