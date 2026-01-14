@@ -55,19 +55,19 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker, index }) => {
       {/* Content Section */}
       <div className="flex flex-col flex-1 p-4 sm:p-5 md:p-6">
         {/* Name */}
-        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1.5 sm:mb-2 tracking-tight font-sans group-hover:text-dark-blue-300 transition-colors duration-300">
+        <h3 className="text-xl sm:text-xl md:text-2xl font-bold text-white mb-1.5 sm:mb-2 tracking-tight font-sans group-hover:text-dark-blue-300 transition-colors duration-300">
           {speaker.name}
         </h3>
 
         {/* Title/Position - Fixed height container for alignment */}
-        <div className="h-12 sm:h-14 md:h-16 mb-3 sm:mb-4">
+        <div className="h-14 sm:h-14 md:h-16 mb-3 sm:mb-4">
           {/* Role (first line) */}
-          <p className="text-dark-blue-400 text-xs sm:text-sm md:text-base font-medium font-sans leading-tight">
+          <p className="text-dark-blue-400 text-sm sm:text-sm md:text-base font-medium font-sans leading-tight">
             {role}
           </p>
           {/* Company (second line with @) */}
           {company && (
-            <p className="text-dark-blue-400/70 text-xs sm:text-sm md:text-base font-medium font-sans leading-tight">
+            <p className="text-dark-blue-400/70 text-sm sm:text-sm md:text-base font-medium font-sans leading-tight">
               @ {company}
             </p>
           )}
