@@ -19,7 +19,7 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
   return (
     <>
       {/* ================= DESKTOP NAVIGATION (>768px) ================= */}
-      <nav className="hidden md:block fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 font-sans">
+      <nav id="desktop-nav" className="hidden md:block fixed top-0 left-0 w-full z-[120] bg-black/80 backdrop-blur-md border-b border-white/5 font-sans opacity-0">
         <div className="flex w-full overflow-x-auto no-scrollbar">
           {sections.map((sec, idx) => {
             const isLast = idx === sections.length - 1;
@@ -51,7 +51,7 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
 
       {/* ================= MOBILE NAVIGATION (<768px) ================= */}
       {/* Updated: No border, larger height, flush button */}
-      <nav className="md:hidden fixed top-0 left-0 w-full z-50 bg-[#050505] h-20 flex items-center justify-between pl-4 shadow-xl">
+      <nav id="mobile-nav" className="md:hidden fixed top-0 left-0 w-full z-[120] bg-[#050505] h-20 flex items-center justify-between pl-4 shadow-xl opacity-0">
         
         {/* Left: Hamburger Menu (Vertically Centered) */}
         <button 
@@ -76,7 +76,7 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
 
       {/* ================= MOBILE FULLSCREEN MENU OVERLAY ================= */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-[#050505] flex flex-col items-center justify-center animate-fadeIn">
+        <div className="fixed inset-0 z-[500] bg-[#050505] flex flex-col items-center justify-center animate-fadeIn">
            
            {/* Close Button */}
            <button 
@@ -113,7 +113,7 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
       )}
 
       {/* Bottom Bar with Logo & Progress (Desktop & Mobile) */}
-      <div className="fixed bottom-0 left-0 w-full z-40">
+      <div id="bottom-bar" className="fixed bottom-0 left-0 w-full z-[120] opacity-0">
         {/* Logo - Positioned above progress bar */}
         <div className="absolute left-6 md:left-10 bottom-4 md:bottom-6 z-10">
           <img

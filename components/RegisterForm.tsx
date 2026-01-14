@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { siteData } from '../siteContent';
 
 const RegisterForm: React.FC = () => {
@@ -29,25 +30,45 @@ const RegisterForm: React.FC = () => {
     }
   };
 
-  if (status === 'success') {
-    return (
-      <div className="flex flex-col justify-center h-full animate-fadeIn p-8 md:p-12 relative overflow-hidden font-sans">
-        {/* Glow Background for Success State */}
-        <div className="absolute inset-0 bg-gradient-to-br from-dark-blue-900/40 via-transparent to-transparent pointer-events-none"></div>
+  // Reload page to go back to intro
+  const handleBackToIntro = () => {
+    window.location.reload();
+  };
 
-        <h3 className="text-3xl md:text-5xl font-medium mb-6 text-white leading-tight relative z-10">
-          {siteData.registration.successTitle}, <br/>
-          <span className="text-gray-400 text-3xl font-normal">
-             {siteData.registration.successMessage}
-          </span>
-        </h3>
-        <p className="mt-8 text-dark-blue-300 text-xl relative z-10">Check your inbox for ticket #{Math.floor(Math.random() * 9000) + 1000}</p>
-        
-        {/* Visual Decoration for Success */}
-        <div className="mt-12 w-20 h-20 bg-dark-blue-700 rounded-full flex items-center justify-center relative z-10 shadow-lg shadow-dark-blue-900/50">
-             <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+  // Use Portal to render success screen outside the DOM tree
+  // This ensures it appears above ALL elements including nav/footer
+  if (status === 'success') {
+    return createPortal(
+      <div className="fixed inset-0 z-[9999] bg-[#060606] animate-fadeIn overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 pointer-events-none">
+          <img src="/Template/BG.png" alt="" className="w-full h-full object-cover" />
         </div>
-      </div>
+
+        {/* Purple Glow - Top Right like template */}
+        <div className="absolute top-[-15%] right-[-15%] w-[90vw] h-[90vw] md:w-[80vw] md:h-[80vw] bg-[radial-gradient(circle,_rgba(107,0,255,0.5)_0%,_rgba(130,55,255,0.3)_40%,_transparent_70%)] pointer-events-none blur-[80px]"></div>
+
+        {/* Content - Left aligned, vertically centered */}
+        <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-12 lg:px-20">
+          <h2 className="text-3xl md:text-6xl lg:text-8xl font-light text-white leading-[1.15] tracking-tight">
+            Bạn đã đăng ký thành công
+          </h2>
+          <p className="text-2xl md:text-4xl lg:text-6xl font-light text-gray-400 mt-2 md:mt-4">
+            Hẹn gặp bạn tại Workshop !
+          </p>
+        </div>
+
+        {/* Arrow Button - Flush bottom right, bigger with hover scale */}
+        <button
+          onClick={handleBackToIntro}
+          className="absolute bottom-0 right-0 w-20 h-20 md:w-32 md:h-32 bg-[#6b00ff] hover:scale-110 flex items-center justify-center transition-transform duration-300 cursor-pointer z-20 origin-bottom-right"
+        >
+          <svg className="w-10 h-10 md:w-16 md:h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
+        </button>
+      </div>,
+      document.body
     );
   }
 

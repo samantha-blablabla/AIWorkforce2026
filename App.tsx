@@ -1,17 +1,22 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Loader from './components/Loader';
 import { Navigation } from './components/Navigation';
+import SharedTitle from './components/SharedTitle';
+import SharedGlow from './components/SharedGlow';
 import { IntroSection, OverviewSection, RoadmapSection, RegistrationSectionComponent } from './components/Sections';
 
-// Register GSAP Plugin
+// Register GSAP Plugins
 gsap.registerPlugin(ScrollTrigger);
 
+type Phase = 'loader' | 'transitioning' | 'intro';
+
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [phase, setPhase] = useState<Phase>('loader');
   const [currentSection, setCurrentSection] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [unmountLoader, setUnmountLoader] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -25,28 +30,67 @@ const App: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Handle loader animation complete - start transition
+  const handleLoaderComplete = useCallback(() => {
+    setPhase('transitioning');
+  }, []);
+
+  // SIMPLE TRANSITION - No Flip, just fade and slide
+  useLayoutEffect(() => {
+    if (phase !== 'transitioning') return;
+
+    // Fade out Loader
+    gsap.to("#loader-container", {
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      onComplete: () => {
+        setUnmountLoader(true);
+        setPhase('intro');
+      }
+    });
+
+    // Slide in Navigation elements
+    gsap.fromTo("#desktop-nav",
+      { y: -50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", delay: 0.3 }
+    );
+
+    gsap.fromTo("#mobile-nav",
+      { y: -50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", delay: 0.3 }
+    );
+
+    gsap.fromTo("#bottom-bar",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", delay: 0.4 }
+    );
+  }, [phase]);
+
   // GSAP Horizontal Scroll Logic
   useLayoutEffect(() => {
-    if (loading || isMobile) return;
+    if (phase !== 'intro' || isMobile) return;
 
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray('.panel');
       const amountToScroll = 100 * (sections.length - 1);
-      
+
       const scrollTween = gsap.to(sections, {
         xPercent: -amountToScroll,
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
-          scrub: 2, 
+          scrub: 1,
+          anticipatePin: 1,
+          fastScrollEnd: true,
           snap: {
             snapTo: 1 / (sections.length - 1),
             inertia: false,
-            duration: { min: 0.1, max: 0.2 },
-            delay: 0.1
+            duration: { min: 0.1, max: 0.3 },
+            delay: 0.05
           },
-          end: "+=6000", 
+          end: "+=5000",
           onUpdate: (self) => {
             const progress = self.progress;
             const index = Math.round(progress * (sections.length - 1));
@@ -58,12 +102,12 @@ const App: React.FC = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, [loading, isMobile]);
+  }, [phase, isMobile]);
 
   // Handle Mobile Scroll Spy
   useEffect(() => {
-    if (!isMobile || loading) return;
-    
+    if (!isMobile || phase !== 'intro') return;
+
     const handleScroll = () => {
        const scrollPosition = window.scrollY + window.innerHeight / 3;
        const sections = document.querySelectorAll('.panel');
@@ -74,10 +118,10 @@ const App: React.FC = () => {
           }
        });
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile, loading]);
+  }, [isMobile, phase]);
 
   const handleNavigate = (index: number) => {
     if (isMobile) {
@@ -89,9 +133,9 @@ const App: React.FC = () => {
        if (triggerRef.current) {
          const st = triggerRef.current;
          const totalDistance = st.end - st.start;
-         const progress = index / 3; 
+         const progress = index / 3;
          const targetScroll = st.start + (totalDistance * progress);
-         
+
          window.scrollTo({
            top: targetScroll,
            behavior: 'smooth'
@@ -100,32 +144,84 @@ const App: React.FC = () => {
     }
   };
 
-  if (loading) {
-    return <Loader onComplete={() => setLoading(false)} />;
-  }
+  // Get SharedTitle position based on phase
+  const getTitlePosition = (): 'loader' | 'intro' => {
+    if (phase === 'loader') return 'loader';
+    return 'intro'; // Both transitioning and intro use intro position
+  };
+
+  // Get SharedGlow position based on phase
+  const getGlowPosition = (): 'loader' | 'intro' => {
+    if (phase === 'loader') return 'loader';
+    return 'intro';
+  };
 
   return (
     <div className="bg-[#060606] text-white min-h-screen font-sans">
-      <Navigation 
-        currentSection={currentSection} 
-        totalSections={4} 
+      {/* ========== SHARED GLOW - z-[105] ========== */}
+      {/* HIDE when scrolled past IntroSection (currentSection > 0) */}
+      <div
+        style={{
+          opacity: phase === 'loader' || currentSection === 0 ? 1 : 0,
+          transition: 'opacity 0.3s ease-out'
+        }}
+      >
+        <SharedGlow position={getGlowPosition()} />
+      </div>
+
+      {/* ========== LOADER - z-[100] ========== */}
+      {!unmountLoader && (
+        <div
+          id="loader-container"
+          className="fixed inset-0 z-[100]"
+          style={{
+            pointerEvents: phase === 'loader' ? 'auto' : 'none'
+          }}
+        >
+          <Loader onComplete={handleLoaderComplete} />
+        </div>
+      )}
+
+      {/* ========== SHARED TITLE - Single instance with GSAP animation ========== */}
+      {/* Always rendered, position animated from loader to intro */}
+      {/* HIDE when scrolled past IntroSection (currentSection > 0) */}
+      <div
+        style={{
+          opacity: currentSection === 0 ? 1 : 0,
+          pointerEvents: currentSection === 0 ? 'auto' : 'none',
+          transition: 'opacity 0.3s ease-out'
+        }}
+      >
+        <SharedTitle position={getTitlePosition()} />
+      </div>
+
+      {/* ========== NAVIGATION - Animated in during transition ========== */}
+      <Navigation
+        currentSection={currentSection}
+        totalSections={4}
         onNavigate={handleNavigate}
       />
-      
-      <div 
-        ref={containerRef} 
-        className={`w-full h-full ${!isMobile ? 'overflow-hidden' : ''}`}
+
+      {/* ========== MAIN CONTENT - z-[50] ========== */}
+      {/* Always rendered but hidden during loader phase */}
+      <div
+        ref={containerRef}
+        className={`w-full h-full ${!isMobile ? 'overflow-hidden' : 'overflow-x-hidden'} z-[50]`}
+        style={{
+          position: phase === 'loader' ? 'fixed' : 'relative',
+          top: 0,
+          left: 0,
+          visibility: phase === 'loader' ? 'hidden' : 'visible'
+        }}
       >
-        <div 
+        <div
           ref={sectionsRef}
           className={`flex ${isMobile ? 'flex-col' : 'flex-row'}`}
           style={{ width: isMobile ? '100%' : '400vw' }}
         >
-          {/* 
-            Desktop: Each panel MUST be w-screen (100vw) relative to the 400vw container.
-            Using w-full would make them 400vw wide each, breaking the layout.
-          */}
-          <div className="panel w-full md:w-screen min-h-screen md:h-screen"><IntroSection /></div>
+          <div className="panel w-full md:w-screen min-h-screen md:h-screen">
+            <IntroSection />
+          </div>
           <div className="panel w-full md:w-screen min-h-screen md:h-screen"><OverviewSection /></div>
           <div className="panel w-full md:w-screen min-h-screen md:h-screen"><RoadmapSection /></div>
           <div className="panel w-full md:w-screen min-h-screen md:h-screen"><RegistrationSectionComponent /></div>

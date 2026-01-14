@@ -9,6 +9,29 @@ body {
   overflow-x: hidden;
 }
 
+/* GPU Acceleration for smooth animations */
+.panel {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Optimize animated elements */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Subtle Grid Background Pattern - Reduced Opacity */
 .bg-grid {
   background-size: 60px 60px;
