@@ -64,13 +64,27 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
           </svg>
         </button>
 
-        {/* Right: CTA Register Button (Full Height, Square, Flush Right) */}
+        {/* Right: CTA Register Button / Back to Top (Full Height, Square, Flush Right) */}
         <button
-          onClick={() => onNavigate?.(4)} // Index 4 is Register
-          className="absolute top-0 right-0 h-20 bg-[#6b00ff] hover:bg-[#5900da] text-white font-bold text-lg px-8 shadow-none uppercase tracking-wide active:bg-[#4b00b3] transition-colors flex items-center justify-center"
-          style={{ borderRadius: 0 }} // Ensure no rounded corners
+          onClick={() => {
+            if (currentSection === totalSections - 1) {
+              // Back to top when on last section
+              onNavigate?.(0);
+            } else {
+              // Navigate to Register section
+              onNavigate?.(4);
+            }
+          }}
+          className="absolute top-0 right-0 h-20 bg-[#6b00ff] hover:bg-[#5900da] text-white font-bold text-lg px-8 shadow-none uppercase tracking-wide active:bg-[#4b00b3] transition-all duration-300 flex items-center justify-center"
+          style={{ borderRadius: 0 }}
         >
-          Đăng Ký
+          {currentSection === totalSections - 1 ? (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+          ) : (
+            'Đăng Ký'
+          )}
         </button>
       </nav>
 
@@ -98,22 +112,15 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
                   {item}
                 </button>
               ))}
-              
-              {/* Divider */}
-              <div className="w-20 h-[1px] bg-white/10 mx-auto my-2"></div>
-
-              <button
-                 onClick={() => handleMobileNavigate(4)}
-                 className="text-4xl font-bold text-dark-blue-500"
-              >
-                Đăng Ký Ngay
-              </button>
            </div>
         </div>
       )}
 
       {/* Bottom Bar with Logo & Progress (Desktop & Mobile) */}
       <div id="bottom-bar" className="fixed bottom-0 left-0 w-full z-[120] opacity-0">
+        {/* Mobile Background - semi-transparent dark background */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent md:from-transparent md:via-transparent pointer-events-none" />
+
         {/* Logo - Positioned above progress bar */}
         <div className="absolute left-6 md:left-10 bottom-4 md:bottom-6 z-10">
           <img
@@ -124,7 +131,7 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
         </div>
 
         {/* Progress Bar */}
-        <div className="h-1 bg-white/10 w-full">
+        <div className="h-1 bg-white/10 w-full relative z-10">
           <div
             className="h-full bg-gradient-to-r from-dark-blue-600 via-dark-blue-500 to-dark-blue-600 transition-all duration-300 ease-out"
             style={{ width: `${((currentSection + 1) / totalSections) * 100}%` }}

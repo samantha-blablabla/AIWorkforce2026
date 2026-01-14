@@ -113,16 +113,16 @@ const SharedTitle: React.FC<SharedTitleProps> = ({ position }) => {
     >
       <div className="space-y-1 md:space-y-3">
         {/* Line 1: Subtitle */}
-        <p className="title-line title-line-1 text-base md:text-2xl lg:text-3xl text-gray-300 font-light tracking-wide font-sans opacity-0">
+        <p className="title-line title-line-1 text-lg md:text-2xl lg:text-3xl text-gray-300 font-light tracking-wide font-sans opacity-0">
           {siteData.intro.titleLine1}
         </p>
 
-        {/* Lines 2 & 3: Main titles - Smaller on mobile */}
+        {/* Lines 2 & 3: Main titles - Larger on mobile */}
         <div className="space-y-0">
-          <h2 className="title-line title-line-2 text-3xl md:text-6xl lg:text-8xl leading-[1.05] md:leading-[0.95] font-bold text-white tracking-tight font-sans opacity-0">
+          <h2 className="title-line title-line-2 text-[11vw] md:text-6xl lg:text-8xl leading-[1.05] md:leading-[0.95] font-bold text-white tracking-tight font-sans opacity-0">
             {siteData.intro.titleLine2}
           </h2>
-          <h2 className="title-line title-line-3 text-3xl md:text-6xl lg:text-8xl leading-[1.05] md:leading-[0.95] font-bold text-white tracking-tight font-sans opacity-0">
+          <h2 className="title-line title-line-3 text-[11vw] md:text-6xl lg:text-8xl leading-[1.05] md:leading-[0.95] font-bold text-white tracking-tight font-sans opacity-0">
             {siteData.intro.titleLine3}
           </h2>
         </div>
