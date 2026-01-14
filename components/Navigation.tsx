@@ -118,15 +118,15 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
 
       {/* Bottom Bar with Logo & Progress (Desktop & Mobile) */}
       <div id="bottom-bar" className="fixed bottom-0 left-0 w-full z-[120] opacity-0">
-        {/* Mobile Background - semi-transparent dark background */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent md:from-transparent md:via-transparent pointer-events-none" />
+        {/* Mobile Background - taller gradient for better logo visibility */}
+        <div className="absolute inset-x-0 bottom-0 h-24 md:h-auto bg-gradient-to-t from-black via-black/80 to-transparent md:from-transparent md:via-transparent md:to-transparent pointer-events-none" />
 
         {/* Logo - Positioned above progress bar */}
         <div className="absolute left-6 md:left-10 bottom-4 md:bottom-6 z-10">
           <img
             src="/Template/LOGO-WHITE.png"
             alt="GEARVN"
-            className="h-8 md:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity"
+            className="h-8 md:h-10 w-auto drop-shadow-lg"
           />
         </div>
 

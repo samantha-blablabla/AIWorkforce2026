@@ -25,8 +25,8 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker, index }) => {
 
   return (
     <div className="speaker-card group relative flex flex-col bg-[#0a0a0a] border border-white/5 rounded-xl md:rounded-2xl overflow-hidden hover:border-dark-blue-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-dark-blue-900/20">
-      {/* Avatar Section */}
-      <div className="relative h-40 sm:h-48 md:h-64 overflow-hidden">
+      {/* Avatar Section - taller on mobile for better visibility */}
+      <div className="relative h-52 sm:h-56 md:h-64 overflow-hidden">
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10" />
 
@@ -74,7 +74,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker, index }) => {
         </div>
 
         {/* Bio */}
-        <p className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed font-sans font-light flex-1 whitespace-pre-line">
+        <p className="text-gray-400 text-sm sm:text-sm md:text-base leading-relaxed font-sans font-normal flex-1 whitespace-pre-line">
           {speaker.bio}
         </p>
 
