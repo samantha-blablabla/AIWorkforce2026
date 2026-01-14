@@ -32,10 +32,25 @@ export interface RegistrationSection {
   visualImage: string;
 }
 
+export interface Speaker {
+  id: string;
+  name: string;
+  title: string;
+  bio: string;
+  avatar: string;
+}
+
+export interface SpeakerSection {
+  sectionTitle: string;
+  sectionSubtitle: string;
+  speakers: Speaker[];
+}
+
 export interface SiteData {
   intro: IntroSection;
   overview: OverviewItem[];
   roadmap: RoadmapItem[];
+  speakers: SpeakerSection;
   registration: RegistrationSection;
   footer: {
     brandName: string;

@@ -52,6 +52,33 @@ export const siteData: SiteData = {
       details: "Học cách tinh chỉnh, tối ưu hóa Bot và triển khai vào thực tế cuộc sống và công việc.",
     },
   ],
+  speakers: {
+    sectionTitle: "",
+    sectionSubtitle: "",
+    speakers: [
+      {
+        id: "01",
+        name: "Võ Quốc Cường",
+        title: "Founder & CEO @ EGANY",
+        bio: "Ứng dụng AI thực tế trong doanh nghiệp\n• Tóm tắt nhóm chat dự án và đề xuất hành động nhanh\n• Đánh giá, phân tích video viral chỉ với một chiếc điện thoại\n• Phân tích dữ liệu và xây dựng báo cáo dễ hiểu cho người không chuyên",
+        avatar: "/Template/speaker-1.png",
+      },
+      {
+        id: "02",
+        name: "Việt Trần",
+        title: "Founder & Solution Architech @ 200Lab.io",
+        bio: "Developer trong làn sóng AI\n• Mindset dịch chuyển khi làm việc cùng AI\n• Hỗ trợ các cấp trong doanh nghiệp xây dựng \"đồ chơi\" AI hiệu quả, an toàn",
+        avatar: "/Template/speaker-2.png",
+      },
+      {
+        id: "03",
+        name: "Duy Nguyễn",
+        title: "Co-Founder & Chief Technology Officer @ T.O.P GROUP Vietnam",
+        bio: "Góc nhìn AI năm 2026\n• Toàn cảnh xu hướng AI trong giai đoạn sắp tới\n• Phần mềm cá nhân hoá theo người dùng\n• Ứng dụng AI trong marketing để tối ưu tiếp cận và tăng trưởng",
+        avatar: "/Template/speaker-3.png",
+      },
+    ],
+  },
   registration: {
     title: "Đăng ký tham gia",
     subtitle: "*Thông tin cần điền",

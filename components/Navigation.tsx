@@ -8,8 +8,8 @@ interface NavProps {
 
 export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const sections = ["Giới Thiệu", "Tổng Quan", "RoadMap", "Đăng Ký"];
-  const navItems = sections.slice(0, 3); // Items inside the menu
+  const sections = ["Giới Thiệu", "Tổng Quan", "RoadMap", "Diễn Giả", "Đăng Ký"];
+  const navItems = sections.slice(0, 4); // Items inside the menu (excluding Register)
 
   const handleMobileNavigate = (index: number) => {
     setIsMenuOpen(false);
@@ -65,8 +65,8 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
         </button>
 
         {/* Right: CTA Register Button (Full Height, Square, Flush Right) */}
-        <button 
-          onClick={() => onNavigate?.(3)} // Index 3 is Register
+        <button
+          onClick={() => onNavigate?.(4)} // Index 4 is Register
           className="absolute top-0 right-0 h-20 bg-[#6b00ff] hover:bg-[#5900da] text-white font-bold text-lg px-8 shadow-none uppercase tracking-wide active:bg-[#4b00b3] transition-colors flex items-center justify-center"
           style={{ borderRadius: 0 }} // Ensure no rounded corners
         >
@@ -103,7 +103,7 @@ export const Navigation: React.FC<NavProps> = ({ currentSection, totalSections, 
               <div className="w-20 h-[1px] bg-white/10 mx-auto my-2"></div>
 
               <button
-                 onClick={() => handleMobileNavigate(3)}
+                 onClick={() => handleMobileNavigate(4)}
                  className="text-4xl font-bold text-dark-blue-500"
               >
                 Đăng Ký Ngay

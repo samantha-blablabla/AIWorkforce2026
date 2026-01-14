@@ -6,6 +6,7 @@ import { Navigation } from './components/Navigation';
 import SharedTitle from './components/SharedTitle';
 import SharedGlow from './components/SharedGlow';
 import { IntroSection, OverviewSection, RoadmapSection, RegistrationSectionComponent } from './components/Sections';
+import { SpeakerSection } from './components/SpeakerSection';
 
 // Register GSAP Plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -133,7 +134,7 @@ const App: React.FC = () => {
        if (triggerRef.current) {
          const st = triggerRef.current;
          const totalDistance = st.end - st.start;
-         const progress = index / 3;
+         const progress = index / 4;
          const targetScroll = st.start + (totalDistance * progress);
 
          window.scrollTo({
@@ -198,7 +199,7 @@ const App: React.FC = () => {
       {/* ========== NAVIGATION - Animated in during transition ========== */}
       <Navigation
         currentSection={currentSection}
-        totalSections={4}
+        totalSections={5}
         onNavigate={handleNavigate}
       />
 
@@ -217,13 +218,14 @@ const App: React.FC = () => {
         <div
           ref={sectionsRef}
           className={`flex ${isMobile ? 'flex-col' : 'flex-row'}`}
-          style={{ width: isMobile ? '100%' : '400vw' }}
+          style={{ width: isMobile ? '100%' : '500vw' }}
         >
           <div className="panel w-full md:w-screen min-h-screen md:h-screen">
             <IntroSection />
           </div>
           <div className="panel w-full md:w-screen min-h-screen md:h-screen"><OverviewSection /></div>
           <div className="panel w-full md:w-screen min-h-screen md:h-screen"><RoadmapSection /></div>
+          <div className="panel w-full md:w-screen min-h-screen md:h-screen"><SpeakerSection /></div>
           <div className="panel w-full md:w-screen min-h-screen md:h-screen"><RegistrationSectionComponent /></div>
         </div>
       </div>
