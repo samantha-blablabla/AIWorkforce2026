@@ -24,9 +24,9 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker, index }) => {
   const company = titleParts[1]?.trim() || '';
 
   return (
-    <div className="speaker-card group relative flex flex-col bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden hover:border-dark-blue-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-dark-blue-900/20">
+    <div className="speaker-card group relative flex flex-col bg-[#0a0a0a] border border-white/5 rounded-xl md:rounded-2xl overflow-hidden hover:border-dark-blue-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-dark-blue-900/20">
       {/* Avatar Section */}
-      <div className="relative h-48 md:h-64 overflow-hidden">
+      <div className="relative h-40 sm:h-48 md:h-64 overflow-hidden">
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10" />
 
@@ -53,36 +53,36 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker, index }) => {
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col flex-1 p-5 md:p-6">
+      <div className="flex flex-col flex-1 p-4 sm:p-5 md:p-6">
         {/* Name */}
-        <h3 className="text-xl md:text-2xl font-bold text-white mb-2 tracking-tight font-sans group-hover:text-dark-blue-300 transition-colors duration-300">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1.5 sm:mb-2 tracking-tight font-sans group-hover:text-dark-blue-300 transition-colors duration-300">
           {speaker.name}
         </h3>
 
         {/* Title/Position - Fixed height container for alignment */}
-        <div className="h-14 md:h-16 mb-4">
+        <div className="h-12 sm:h-14 md:h-16 mb-3 sm:mb-4">
           {/* Role (first line) */}
-          <p className="text-dark-blue-400 text-sm md:text-base font-medium font-sans leading-tight">
+          <p className="text-dark-blue-400 text-xs sm:text-sm md:text-base font-medium font-sans leading-tight">
             {role}
           </p>
           {/* Company (second line with @) */}
           {company && (
-            <p className="text-dark-blue-400/70 text-sm md:text-base font-medium font-sans leading-tight">
+            <p className="text-dark-blue-400/70 text-xs sm:text-sm md:text-base font-medium font-sans leading-tight">
               @ {company}
             </p>
           )}
         </div>
 
         {/* Bio */}
-        <p className="text-gray-400 text-sm md:text-base leading-relaxed font-sans font-light flex-1 whitespace-pre-line">
+        <p className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed font-sans font-light flex-1 whitespace-pre-line">
           {speaker.bio}
         </p>
 
         {/* Decorative Line */}
-        <div className="mt-4 pt-4 border-t border-white/5">
+        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/5">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-[2px] bg-gradient-to-r from-dark-blue-600 to-transparent rounded-full" />
-            <span className="text-xs text-gray-500 uppercase tracking-widest font-sans">Speaker</span>
+            <div className="w-6 sm:w-8 h-[2px] bg-gradient-to-r from-dark-blue-600 to-transparent rounded-full" />
+            <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest font-sans">Speaker</span>
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@ export const SpeakerSection: React.FC = () => {
       <div className="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-[radial-gradient(circle,_rgba(107,0,255,0.1)_0%,_rgba(130,55,255,0.05)_40%,_transparent_70%)] pointer-events-none blur-[80px]" />
 
       {/* Content Container */}
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 relative z-10">
         {/* Section Header - Only show if title or subtitle exists */}
         {(siteData.speakers.sectionTitle || siteData.speakers.sectionSubtitle) && (
           <div className="mb-10 md:mb-16">
@@ -151,7 +151,7 @@ export const SpeakerSection: React.FC = () => {
         {/* Speaker Cards Grid */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-8"
         >
           {siteData.speakers.speakers.map((speaker, index) => (
             <SpeakerCard key={speaker.id} speaker={speaker} index={index} />
